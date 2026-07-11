@@ -53,12 +53,18 @@ function setupSystem() {
   let form = openConfiguredForm_(config);
   if (!form) {
     form = createInquiryForm_();
+    // 後続処理が失敗しても、再実行時に同じフォームを再利用できるよう先に保存する。
+    saveRuntimeConfig_(ss, form);
   }
 
-  if (
-    form.getDestinationType() !== FormApp.DestinationType.SPREADSHEET ||
-    form.getDestinationId() !== ss.getId()
-  ) {
+  let hasExpectedDestination = false;
+  try {
+    // 回答先が未設定の新規フォームではgetDestinationId()が例外になる。
+    hasExpectedDestination = form.getDestinationId() === ss.getId();
+  } catch (error) {
+    hasExpectedDestination = false;
+  }
+  if (!hasExpectedDestination) {
     form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
   }
 
