@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">CASE 02 問い合わせ自動化 検証サマリー</title><desc id="desc">処理フローと7件中7件合格のテスト結果</desc>
+<rect width="1200" height="675" fill="#f4f5f7"/><rect x="36" y="34" width="1128" height="607" rx="18" fill="#fff" stroke="#cfd4dc"/>
+<text x="72" y="86" font-family="Arial,sans-serif" font-size="18" fill="#2757d7" font-weight="700">CASE 02 / VERIFIED 2026-07-12</text>
+<text x="72" y="127" font-family="Arial,sans-serif" font-size="32" fill="#171a1f" font-weight="700">問い合わせ受付自動化</text>
+<text x="72" y="158" font-family="Arial,sans-serif" font-size="15" fill="#5c6572">Googleフォームから管理記録・自動返信・運営者通知までを接続</text>
+<rect x="72" y="202" width="280" height="292" rx="12" fill="#f8f9fb" stroke="#cfd4dc"/>
+<text x="96" y="238" font-family="Arial,sans-serif" font-size="14" fill="#2757d7" font-weight="700">01 / FORM</text>
+<text x="96" y="273" font-family="Arial,sans-serif" font-size="21" fill="#171a1f" font-weight="700">お問い合わせ</text>
+<rect x="96" y="296" width="232" height="34" rx="4" fill="#fff" stroke="#cfd4dc"/><text x="108" y="318" font-family="Arial,sans-serif" font-size="12" fill="#6a7380">名前</text>
+<rect x="96" y="342" width="232" height="34" rx="4" fill="#fff" stroke="#cfd4dc"/><text x="108" y="364" font-family="Arial,sans-serif" font-size="12" fill="#6a7380">メールアドレス</text>
+<rect x="96" y="388" width="232" height="34" rx="4" fill="#fff" stroke="#cfd4dc"/><text x="108" y="410" font-family="Arial,sans-serif" font-size="12" fill="#6a7380">希望サービス</text>
+<rect x="96" y="438" width="108" height="34" rx="4" fill="#2757d7"/><text x="130" y="460" font-family="Arial,sans-serif" font-size="12" fill="#fff" font-weight="700">送信</text>
+<path d="M372 347H438" stroke="#2757d7" stroke-width="3"/><path d="M429 339L440 347L429 355" fill="none" stroke="#2757d7" stroke-width="3"/>
+<rect x="460" y="202" width="300" height="292" rx="12" fill="#171a1f"/>
+<text x="486" y="238" font-family="Arial,sans-serif" font-size="14" fill="#8eabff" font-weight="700">02 / AUTOMATION</text>
+<text x="486" y="275" font-family="Arial,sans-serif" font-size="19" fill="#fff" font-weight="700">onFormSubmit</text>
+<text x="486" y="310" font-family="Arial,sans-serif" font-size="13" fill="#bdc3cc">✓ 重複確認・入力検証</text><text x="486" y="342" font-family="Arial,sans-serif" font-size="13" fill="#bdc3cc">✓ 問い合わせ番号発行</text>
+<text x="486" y="374" font-family="Arial,sans-serif" font-size="13" fill="#bdc3cc">✓ 対応状況「未対応」</text><text x="486" y="406" font-family="Arial,sans-serif" font-size="13" fill="#bdc3cc">✓ 顧客へ自動返信</text>
+<text x="486" y="438" font-family="Arial,sans-serif" font-size="13" fill="#bdc3cc">✓ 運営者へ通知</text><text x="486" y="470" font-family="Arial,sans-serif" font-size="13" fill="#bdc3cc">✓ エラー・送信結果記録</text>
+<path d="M780 347H846" stroke="#2757d7" stroke-width="3"/><path d="M837 339L848 347L837 355" fill="none" stroke="#2757d7" stroke-width="3"/>
+<rect x="870" y="202" width="258" height="292" rx="12" fill="#edf2ff" stroke="#9db5f7"/>
+<text x="896" y="238" font-family="Arial,sans-serif" font-size="14" fill="#2757d7" font-weight="700">03 / RESULT</text>
+<text x="896" y="288" font-family="Arial,sans-serif" font-size="58" fill="#171a1f" font-weight="800">7 / 7</text><text x="896" y="320" font-family="Arial,sans-serif" font-size="14" fill="#5c6572">TESTS PASSED</text>
+<line x1="896" y1="346" x2="1102" y2="346" stroke="#bdc8df"/><text x="896" y="380" font-family="Arial,sans-serif" font-size="13" fill="#344055">通常送信　PASS</text>
+<text x="896" y="410" font-family="Arial,sans-serif" font-size="13" fill="#344055">障害記録　PASS</text><text x="896" y="440" font-family="Arial,sans-serif" font-size="13" fill="#344055">二重防止　PASS</text>
+<text x="896" y="470" font-family="Arial,sans-serif" font-size="13" fill="#344055">同時送信　PASS</text>
+<rect x="72" y="530" width="1056" height="72" rx="8" fill="#f8f9fb" stroke="#d8dce3"/><text x="94" y="558" font-family="Arial,sans-serif" font-size="12" fill="#6a7380">匿名化した管理記録</text>
+<text x="94" y="584" font-family="monospace" font-size="13" fill="#171a1f">PHOTO-20260712-0001 | 未対応 | 顧客返信:送信済み | 運営者通知:送信済み | エラー:なし</text>
+<text x="1090" y="625" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#7a8390">Personal data omitted</text>
+</svg>
