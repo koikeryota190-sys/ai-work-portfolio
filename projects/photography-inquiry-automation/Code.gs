@@ -173,6 +173,50 @@ function runSelfCheck() {
   return result;
 }
 
+/**
+ * 最新のフォーム回答をもう一度処理へ渡し、二重処理されないことを検査する。
+ * 既に管理シートへ記録済みの回答だけを対象にし、新しいメールは送信しない。
+ *
+ * @return {Object}
+ */
+function testDuplicateGuardWithLatestResponse() {
+  const ss = getSpreadsheet_();
+  const config = getConfig_(ss);
+  const form = openConfiguredForm_(config);
+  if (!form) throw new Error('設定済みGoogleフォームが見つかりません。');
+
+  const responses = form.getResponses();
+  if (!responses.length) throw new Error('テスト対象のフォーム回答がありません。');
+
+  const latestResponse = responses[responses.length - 1];
+  const processingKey = `FORM_RESPONSE:${latestResponse.getId()}`;
+  const sheet = ss.getSheetByName(APP.INQUIRY_SHEET);
+  const existingRow = findRowByProcessingKey_(sheet, processingKey);
+  if (!existingRow) {
+    throw new Error('最新回答が管理シートに未登録のため、安全上テストを中止しました。');
+  }
+
+  const beforeLastRow = sheet.getLastRow();
+  onFormSubmit({ response: latestResponse });
+  const afterLastRow = sheet.getLastRow();
+  const matchingKeys = sheet
+    .getRange(2, APP.COL.PROCESSING_KEY, Math.max(sheet.getLastRow() - 1, 1), 1)
+    .getDisplayValues()
+    .flat()
+    .filter((value) => value === processingKey).length;
+
+  const result = {
+    passed: beforeLastRow === afterLastRow && matchingKeys === 1,
+    processingKey,
+    beforeLastRow,
+    afterLastRow,
+    matchingKeys,
+    note: '既存処理キーを検出したため、管理行追加とメール送信処理をスキップしました。',
+  };
+  console.log(JSON.stringify(result, null, 2));
+  return result;
+}
+
 function createInquiryForm_() {
   const form = FormApp.create(APP.FORM_TITLE);
   form
