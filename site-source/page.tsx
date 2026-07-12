@@ -172,11 +172,17 @@ export default function Home() {
 
           <article className="next-project">
             <div>
-              <span>NEXT / CASE 02</span>
+              <span>CASE 02 / COMPLETED</span>
               <h3>受付から通知までをつなぐGAS自動化</h3>
             </div>
-            <p>Googleフォーム → スプレッドシート → 自動返信 → PDF生成</p>
-            <strong>制作予定</strong>
+            <p>Googleフォーム → スプレッドシート → 自動返信・運営者通知</p>
+            <a
+              href="https://github.com/koikeryota190-sys/ai-work-portfolio/tree/main/projects/photography-inquiry-automation"
+              target="_blank"
+              rel="noreferrer"
+            >
+              コードと検証結果 ↗
+            </a>
           </article>
         </section>
 
