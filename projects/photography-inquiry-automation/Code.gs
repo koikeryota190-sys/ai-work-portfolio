@@ -217,6 +217,68 @@ function testDuplicateGuardWithLatestResponse() {
   return result;
 }
 
+/**
+ * メール送信部分へ安全に障害を注入し、送信失敗とエラー内容が記録されるか検査する。
+ * MailAppを呼ぶ前にテスト専用例外を発生させるため、実際のメールは送信されない。
+ *
+ * @return {Object}
+ */
+function testEmailFailureRecording() {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+
+  try {
+    const ss = getSpreadsheet_();
+    const sheet = ss.getSheetByName(APP.INQUIRY_SHEET);
+    const config = getConfig_(ss);
+    const now = new Date();
+    const timestamp = Utilities.formatDate(now, 'Asia/Tokyo', 'yyyyMMdd-HHmmss');
+    const inquiryId = `TEST-EMAIL-FAIL-${timestamp}`;
+    const processingKey = `TEST_EMAIL_FAILURE:${now.getTime()}`;
+    const payload = {
+      receivedAt: now,
+      name: 'メール障害テスト（自動）',
+      email: 'test@example.invalid',
+      service: APP.SERVICES[0],
+      preferredDate: '',
+      message: '障害注入により送信失敗とエラー記録を確認するテストです。実メールは送信しません。',
+    };
+
+    const rowNumber = appendInitialRecord_(sheet, payload, inquiryId, processingKey);
+    sendAndRecordEmails_(sheet, rowNumber, payload, inquiryId, config, ss.getUrl(), {
+      forceCustomerFailure: true,
+      forceAdminFailure: true,
+    });
+
+    const values = sheet.getRange(rowNumber, APP.COL.REPLY_STATUS, 1, 3).getDisplayValues()[0];
+    const replyStatus = values[0];
+    const errorText = values[1];
+    const adminStatus = values[2];
+    const passed =
+      replyStatus === '送信失敗' &&
+      adminStatus === '送信失敗' &&
+      errorText.indexOf('テスト用の顧客メール障害') !== -1 &&
+      errorText.indexOf('テスト用の運営者通知障害') !== -1;
+
+    if (passed) sheet.getRange(rowNumber, APP.COL.STATUS).setValue('対応済み');
+
+    const result = {
+      passed,
+      rowNumber,
+      inquiryId,
+      replyStatus,
+      adminStatus,
+      errorText,
+      emailsSent: 0,
+      note: 'MailApp呼び出し前の障害注入テストです。実際のメールは送信していません。',
+    };
+    console.log(JSON.stringify(result, null, 2));
+    return result;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 function createInquiryForm_() {
   const form = FormApp.create(APP.FORM_TITLE);
   form
@@ -308,10 +370,14 @@ function appendInitialRecord_(sheet, payload, inquiryId, processingKey) {
   return rowNumber;
 }
 
-function sendAndRecordEmails_(sheet, rowNumber, payload, inquiryId, config, spreadsheetUrl) {
+function sendAndRecordEmails_(sheet, rowNumber, payload, inquiryId, config, spreadsheetUrl, options) {
+  const testOptions = options || {};
   const errors = [];
 
   try {
+    if (testOptions.forceCustomerFailure) {
+      throw new Error('テスト用の顧客メール障害（実メール送信なし）');
+    }
     sendCustomerReceipt_(payload, inquiryId, config);
     sheet.getRange(rowNumber, APP.COL.REPLY_STATUS).setValue('送信済み');
   } catch (error) {
@@ -321,6 +387,9 @@ function sendAndRecordEmails_(sheet, rowNumber, payload, inquiryId, config, spre
   SpreadsheetApp.flush();
 
   try {
+    if (testOptions.forceAdminFailure) {
+      throw new Error('テスト用の運営者通知障害（実メール送信なし）');
+    }
     sendAdminNotification_(payload, inquiryId, config, spreadsheetUrl);
     sheet.getRange(rowNumber, APP.COL.ADMIN_NOTICE_STATUS).setValue('送信済み');
   } catch (error) {
