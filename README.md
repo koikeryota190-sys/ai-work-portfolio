@@ -37,6 +37,10 @@ AIを制作補助に使い、人間が要件確認・検証・納品責任を持
 
 架空の出張撮影サービスを想定し、Googleフォームからの問い合わせ受付、スプレッドシートへの管理記録、問い合わせ番号発行、顧客への受付メール、運営者通知、エラー記録をGoogle Apps Scriptで自動化しています。
 
+![CASE 02 検証サマリー](projects/photography-inquiry-automation/evidence-summary.svg)
+
+[匿名化した検証証跡を見る](projects/photography-inquiry-automation/EVIDENCE.md)
+
 ### 実装内容
 
 - Googleフォームの自動生成と回答先シート接続
