@@ -55,6 +55,23 @@ AIを制作補助に使い、人間が要件確認・検証・納品責任を持
 
 [コードと導入手順を見る](projects/photography-inquiry-automation/README.md)
 
+## CASE 03: 出張撮影サービスサイト「Sunny Day Photo」
+
+架空の出張撮影サービスを想定し、サービス紹介から問い合わせまでを1ページで完結させるレスポンシブサイトを制作しました。CASE 02のGoogleフォームへ接続し、Webサイトから問い合わせ受付・記録・自動返信までを一連の流れとして提示しています。
+
+[公開サイトを見る](https://sunny-day-photo.koikeryota190.chatgpt.site)
+
+### 実装内容
+
+- 3種類の撮影プランと料金目安
+- サービス紹介、利用の流れ、開閉式FAQ
+- PC・タブレット・スマートフォン対応
+- Google Formへの問い合わせ導線
+- 基本SEOとアクセシビリティ対応
+- PC・スマートフォン実機確認を含む9項目のテスト合格
+
+[コードと検証結果を見る](projects/sunny-day-photo/README.md)
+
 ## ファイル
 
 - `site-source/page.tsx`: ページの構造と文章
@@ -64,6 +81,10 @@ AIを制作補助に使い、人間が要件確認・検証・納品責任を持
 - `projects/photography-inquiry-automation/Code.gs`: 問い合わせ受付自動化コード
 - `projects/photography-inquiry-automation/README.md`: 導入・運用手順
 - `projects/photography-inquiry-automation/TEST_PLAN.md`: テスト項目と合格基準
+
+- `projects/sunny-day-photo/app/`: サービスサイトのページ、デザイン、SEO設定
+- `projects/sunny-day-photo/README.md`: 制作目的、実装内容、確認方法
+- `projects/sunny-day-photo/TEST_PLAN.md`: サイトのテスト項目と結果
 
 ## AIと人間の分担
 
